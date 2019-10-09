@@ -9,14 +9,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\Mongo\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.10.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.0.0" />
     <PackageReference Include="protobuf-net" Version="2.4.1" />
     <PackageReference Include="StackExchange.Redis" Version="2.0.601" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\ElasticSearch\" />
   </ItemGroup>
 
 </Project>
