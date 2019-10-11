@@ -11,7 +11,7 @@ namespace Proletarians.Services
     {
         public MarvelHeroResponseDto GetHero(MarvelHeroRequestDto heroBaseRequestDto)
         {
-            
+            return null;
         }
     }
 }

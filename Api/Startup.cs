@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cellula.Entity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -27,7 +29,7 @@ namespace Api
         {
             services.AddControllers();
             services.AddHttpClient();
-
+            services.AddEntityFrameworkNpgsql().AddDbContext<ComicsForGeeksContext>(optionsAction: opt => opt.UseNpgsql(Configuration.GetConnectionString("PostgreDbConnection")));
 
         }
 
@@ -44,7 +46,6 @@ namespace Api
             app.UseRouting();
 
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
