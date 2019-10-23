@@ -13,5 +13,10 @@ namespace Proletarians.Services
         {
             return null;
         }
+
+        public MarvelHeroResponseDto SearchHero(string name)
+        {
+            
+        }
     }
 }

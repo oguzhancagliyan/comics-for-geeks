@@ -2,11 +2,17 @@ using Cellula.Entity;
 using System;
 using System.Threading.Tasks;
 using Xunit;
-
+using Moq;
 namespace ComicsTests
 {
     public class UnitTest1
     {
+
+        private ComicsForGeeksContext context;
+        public UnitTest1()
+        {
+            context = TestHelper.CreateDbContext<ComicsForGeeksContext>();
+        }
         [Fact]
         public void Test1()
         {
@@ -27,17 +33,17 @@ namespace ComicsTests
         {
             try
             {
-                ComicsForGeeksContext context = new ComicsForGeeksContext();                
                 var result = await context.Genders.AddAsync(new GenderEntity
                 {
-                    GenderName = "Male",
+                    GenderName = "FMale",
                 });
+               await  context.SaveChangesAsync();
                 Assert.IsType<GenderEntity>(result);
             }
             catch (Exception ex)
             {
 
-      
+
             }
 
         }

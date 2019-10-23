@@ -4,7 +4,10 @@ namespace Cellula.Entity
 {
     public class ComicsForGeeksContext : DbContext
     {
+        public ComicsForGeeksContext(DbContextOptions<ComicsForGeeksContext> options) : base(options)
+        {
 
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseNpgsql("User ID =postgres;Password=003003;Server=localhost;Port=5432;Database=testDb;Integrated Security=true;Pooling=true;");

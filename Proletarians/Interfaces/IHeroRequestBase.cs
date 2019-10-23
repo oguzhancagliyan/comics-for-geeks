@@ -8,5 +8,6 @@ namespace Proletarians.Interfaces
     public interface IHeroRequestBase<Tin, TOut>
     {
         TOut GetHero(Tin heroBaseRequestDto);
+        TOut SearchHero(string name);
     }
 }
