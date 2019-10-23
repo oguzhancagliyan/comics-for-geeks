@@ -28,7 +28,9 @@ namespace Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddHttpClient();
+            services.AddHttpClient("marvelBase",c => 
+            c.BaseAddress = new Uri("https://gateway.marvel.com"));
+
             services.AddEntityFrameworkNpgsql().AddDbContext<ComicsForGeeksContext>(optionsAction: opt => opt.UseNpgsql(Configuration.GetConnectionString("PostgreDbConnection")));
             services.AddScoped<ComicsForGeeksContext>();
             

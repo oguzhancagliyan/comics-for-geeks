@@ -12,6 +12,10 @@ namespace Api.Controllers
     [ApiController]
     public class HeroesController : ControllerBase
     {
+        public HeroesController()
+        {
+
+        }
         // GET: api/Heroes
         [HttpGet]
         public IEnumerable<string> Get()

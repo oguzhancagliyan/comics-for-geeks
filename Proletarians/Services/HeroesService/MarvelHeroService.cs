@@ -9,6 +9,11 @@ namespace Proletarians.Services
 {
     public class MarvelHeroService : IHeroRequestBase<MarvelHeroRequestDto, MarvelHeroResponseDto>
     {
+        //private readonly IHttpClientFactory 
+        public MarvelHeroService()
+        {
+
+        }
         public MarvelHeroResponseDto GetHero(MarvelHeroRequestDto heroBaseRequestDto)
         {
             return null;
