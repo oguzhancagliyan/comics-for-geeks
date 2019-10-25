@@ -3,15 +3,20 @@ using System;
 using System.Threading.Tasks;
 using Xunit;
 using Moq;
+using Proletarians.Interfaces;
+using Cellula.Dtos.HeroesDtos.Marvel;
+
 namespace ComicsTests
 {
     public class UnitTest1
     {
 
         private ComicsForGeeksContext context;
-        public UnitTest1()
+        private readonly IHeroRequestBase<MarvelHeroRequestDto, MarvelHeroResponseDto> _heroRequestBase;
+        public UnitTest1(IHeroRequestBase<MarvelHeroRequestDto, MarvelHeroResponseDto> heroRequestBase)
         {
             context = TestHelper.CreateDbContext<ComicsForGeeksContext>();
+            _heroRequestBase = heroRequestBase;
         }
         [Fact]
         public void Test1()
@@ -37,7 +42,7 @@ namespace ComicsTests
                 {
                     GenderName = "FMale",
                 });
-               await  context.SaveChangesAsync();
+                await context.SaveChangesAsync();
                 Assert.IsType<GenderEntity>(result);
             }
             catch (Exception ex)
@@ -47,6 +52,13 @@ namespace ComicsTests
             }
 
         }
+        [Fact]
+        public async Task Test()
+        {
+            var result = _heroRequestBase.SearchHero("spi");
+            Assert.Null(result);
+        }
+
 
     }
 }

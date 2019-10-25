@@ -2,24 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cellula.Dtos.HeroesDtos.Marvel;
 using Cellula.Heroes;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Proletarians.Interfaces;
 
 namespace Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("heroes")]
     [ApiController]
     public class HeroesController : ControllerBase
     {
-        public HeroesController()
+        private readonly IHeroRequestBase<MarvelHeroRequestDto, MarvelHeroResponseDto> _heroRequestBase;
+        public HeroesController(IHeroRequestBase<MarvelHeroRequestDto, MarvelHeroResponseDto> heroRequestBase)
         {
-
+            _heroRequestBase = heroRequestBase;
         }
         // GET: api/Heroes
         [HttpGet]
         public IEnumerable<string> Get()
         {
+            var result = _heroRequestBase.SearchHero("spi");
             return new string[] { "value1", "value2" };
         }
 
@@ -48,10 +52,11 @@ namespace Api.Controllers
         {
         }
 
-        [HttpGet]
-        public IEnumerable<Characters> Search(string name)
-        {
-
-        }
+        //[HttpGet]
+        //public async Task<IEnumerable<Characters>> Search(string name)
+        //{
+        //    var result = _heroRequestBase.SearchHero(name);
+        //    return null;
+        //}
     }
 }
