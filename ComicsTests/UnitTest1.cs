@@ -2,7 +2,6 @@ using Cellula.Entity;
 using System;
 using System.Threading.Tasks;
 using Xunit;
-using Moq;
 using Proletarians.Interfaces;
 using Cellula.Dtos.HeroesDtos.Marvel;
 

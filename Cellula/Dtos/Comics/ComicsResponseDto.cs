@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Cellula.Dtos.Comics
+﻿namespace Cellula.Dtos.Comics
 {
-   public class ComicsResponseDto
+    public class ComicsResponseDto
     {
     }
 }

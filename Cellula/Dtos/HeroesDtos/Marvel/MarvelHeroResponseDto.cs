@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Cellula.Dtos.HeroesDtos.Marvel
+﻿namespace Cellula.Dtos.HeroesDtos.Marvel
 {
-   public class MarvelHeroResponseDto
+    public class MarvelHeroResponseDto
     {
         public string MarvelName { get; set; }
 

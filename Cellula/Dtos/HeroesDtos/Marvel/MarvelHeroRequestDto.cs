@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Cellula.Dtos.HeroesDtos.Marvel
+﻿namespace Cellula.Dtos.HeroesDtos.Marvel
 {
     public class MarvelHeroRequestDto : HeroBaseRequestDto
     {

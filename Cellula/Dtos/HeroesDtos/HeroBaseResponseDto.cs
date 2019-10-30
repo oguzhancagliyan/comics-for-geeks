@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Cellula.Dtos.HeroesDtos
+﻿namespace Cellula.Dtos.HeroesDtos
 {
     public class HeroBaseResponseDto
     {

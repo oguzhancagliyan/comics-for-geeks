@@ -1,20 +1,19 @@
 ﻿using Cellula.Dtos.HeroesDtos.Marvel;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Proletarians.Interfaces;
 using Proletarians.Utility;
-using RestSharp;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json;
+using Cellula.Comics;
+using Newtonsoft.Json;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Proletarians.Services
 {
-    public class MarvelHeroService : IHeroRequestBase<MarvelHeroRequestDto, MarvelHeroResponseDto>
+    public class MarvelHeroService : IHeroRequestBase<MarvelHeroRequestDto, List<MarvelHeroResponseDto>>
     {
         private readonly IHttpClientFactory _clientFactory;
         private readonly IConfiguration _configuration;
@@ -23,55 +22,37 @@ namespace Proletarians.Services
             _clientFactory = clientFactory;
             _configuration = configuration;
         }
-        public MarvelHeroResponseDto GetHero(MarvelHeroRequestDto heroBaseRequestDto)
+        public List<MarvelHeroResponseDto> GetHero(MarvelHeroRequestDto heroBaseRequestDto)
         {
             return null;
         }
 
-        public async Task<MarvelHeroResponseDto> SearchHero(string name)
+        public async Task<List<MarvelHeroResponseDto>> SearchHero(string name)
         {
 
 
-            var timeStamp = DateTime.Now.ToString("yyyyMMddHHmmssfff");
-            var computedHash = $"{timeStamp}{_configuration.GetValue<string>("Keys:MarvelPrivateKey")}{_configuration.GetValue<string>("Keys:MarvelPublicKey")}".GetMd5HashData();
-            var client = new RestClient("https://gateway.marvel.com");
-            var request = new RestRequest("/v1/public/characters", Method.GET);
-
-
-
-
-            var httpclient = _clientFactory.CreateClient("marvel");
-            var content = new FormUrlEncodedContent(new KeyValuePair<string, string>[]
+            try
             {
-            new KeyValuePair<string, string>("nameStartsWith", name),
-            new KeyValuePair<string, string>("ts", timeStamp),
-            new KeyValuePair<string, string>("apikey",_configuration.GetValue<string>("Keys:MarvelPublicKey")),
-            new KeyValuePair<string, string>("hash",computedHash),
-            });
-            await httpclient.SendAsync(new HttpRequestMessage
+                var timeStamp = DateTime.Now.GetTimeStamp();
+                var computedHash = $"{timeStamp}{_configuration.GetValue<string>("Keys:MarvelPrivateKey")}{_configuration.GetValue<string>("Keys:MarvelPublicKey")}".GetMd5HashData();
+                var httpclient = _clientFactory.CreateClient("marvelBase");
+                var result = await httpclient.GetAsync($"/v1/public/characters?nameStartsWith={name}&ts={timeStamp}&apikey={_configuration.GetValue<string>("Keys:MarvelPublicKey")}&hash={computedHash}");
+
+                var result2 = JsonConvert.DeserializeObject<MarvelResponse>(await result.Content.ReadAsStringAsync());
+                if (result.IsSuccessStatusCode)
+                {
+                    return result2.Data.Results.Select(b => new MarvelHeroResponseDto { MarvelName = b.Name }).ToList();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
             {
-                Content = content,
-                Method = HttpMethod.Get,
-                RequestUri = new Uri("/v1/public/characters"),
-                Properties
-            });
+                return null;
+            }
 
-
-
-
-
-
-
-
-            request.AddParameter("nameStartsWith", name);
-            request.AddParameter("ts", timeStamp);
-            request.AddParameter("apikey", _configuration.GetValue<string>("Keys:MarvelPublicKey"));
-            request.AddParameter("hash", computedHash);
-            request.RequestFormat = DataFormat.Json;
-            request.AddHeader("Content-Type", "application/json");
-            var rr = client.Execute<List<Cellula.Heroes.Characters>>(request);
-
-            return null;
         }
     }
 }

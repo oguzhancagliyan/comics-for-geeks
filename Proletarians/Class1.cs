@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Proletarians
+﻿namespace Proletarians
 {
     public class Class1
     {

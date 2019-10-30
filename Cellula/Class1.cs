@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Cellula
+﻿namespace Cellula
 {
     public class Class1
     {

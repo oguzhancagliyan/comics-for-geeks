@@ -1,18 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Cellula.Dtos.HeroesDtos.Marvel;
 using Cellula.Entity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Proletarians.Interfaces;
 using Proletarians.Services;
 
@@ -33,12 +28,12 @@ namespace Api
             services.AddControllers();
             services.AddHttpClient("marvelBase", c =>
              {
-                 c.BaseAddress = new Uri("https://gateway.marvel.com");
-                 c.DefaultRequestHeaders.Add("Content-Type", "application/json");
+                 c.BaseAddress = new Uri("https://gateway.marvel.com/");
+                 c.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
              });
             services.AddEntityFrameworkNpgsql().AddDbContext<ComicsForGeeksContext>(optionsAction: opt => opt.UseNpgsql(Configuration.GetConnectionString("PostgreDbConnection")));
             services.AddScoped<ComicsForGeeksContext>();
-            services.AddScoped<IHeroRequestBase<MarvelHeroRequestDto, MarvelHeroResponseDto>, MarvelHeroService>();
+            services.AddScoped<IHeroRequestBase<MarvelHeroRequestDto, List<MarvelHeroResponseDto>>, MarvelHeroService>();
 
         }
 
