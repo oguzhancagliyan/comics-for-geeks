@@ -13,6 +13,7 @@ namespace Proletarians.Utility
         public string GetDatabaseConnection() => Configuration.GetConnectionString("DefaultConnection");
         public string GetRedisConnection() => Configuration.GetConnectionString("RedisConnectionString");
         public string GetMongoConnection() => Configuration.GetConnectionString("MongoProductDb");
+        public string GetElasticConnection() => Configuration.GetConnectionString("ElasticDbConnection");
 
         static ProjectUtility()
         {
@@ -20,7 +21,7 @@ namespace Proletarians.Utility
         }
         ProjectUtility()
         {
-
+           
         }
         public void Initialize(IConfiguration configuration)
         {

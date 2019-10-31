@@ -29,10 +29,10 @@ namespace Proletarians.Services
 
         public async Task<List<MarvelHeroResponseDto>> SearchHero(string name)
         {
-
-
             try
-            {
+            {                
+                var result23 = ProjectUtility.Instance.GetRedisConnection();
+
                 var timeStamp = DateTime.Now.GetTimeStamp();
                 var computedHash = $"{timeStamp}{_configuration.GetValue<string>("Keys:MarvelPrivateKey")}{_configuration.GetValue<string>("Keys:MarvelPublicKey")}".GetMd5HashData();
                 var httpclient = _clientFactory.CreateClient("marvelBase");
