@@ -10,6 +10,9 @@ namespace Proletarians.Services.ElasticSearch
         public ElasticSearchHeroService(IElasticContext elasticContext) : base(elasticContext)
         {
 
+
+
+
         }
 
     }

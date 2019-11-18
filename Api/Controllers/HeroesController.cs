@@ -20,6 +20,7 @@ namespace Api.Controllers
         public async Task<IEnumerable<string>> Get()
         {
             var result = await _heroRequestBase.SearchHero("spi");
+            result.Add(new MarvelHeroResponseDto { MarvelName = "aa" });
             return result.Select(b => b.MarvelName);
         }
 
