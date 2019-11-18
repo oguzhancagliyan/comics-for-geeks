@@ -21,6 +21,6 @@ namespace Proletarians.Interfaces
         Task<BulkResponse> UpdateBulkAsync(Dictionary<long, TDocument> keyValuePairs);
         Task<Result> DeleteAsync(int Id);
         Task<bool> ExistAsync(int Id);
-        Task<List<TDocument>> SearchAsync(string name)
+        Task<List<TDocument>> SearchAsync(string name);
     }
 }
